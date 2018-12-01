@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import comcesar1287.github.githubapp.R
 import comcesar1287.github.githubapp.models.User
+import comcesar1287.github.githubapp.utils.GlideApp
+import kotlinx.android.synthetic.main.item_user.view.*
 
-class UsersAdapter(var context: Context, private var list: List<User>) : RecyclerView.Adapter<UsersAdapter.ViewHolder>() {
+class UsersAdapter(private var context: Context, private var list: List<User>) : RecyclerView.Adapter<UsersAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_user, parent, false)
@@ -26,7 +28,17 @@ class UsersAdapter(var context: Context, private var list: List<User>) : Recycle
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(context: Context, user: User) = with(itemView) {
-            //itemView.initials.text = cryptosDTO.crypto?.initials
+            itemView.login.text = user.login
+            itemView.type.text = user.type
+
+            GlideApp
+                .with(context)
+                .load(user.avatarUrl)
+                .into(itemView.avatar)
+
+            itemView.userLayout.setOnClickListener {
+
+            }
         }
     }
 }
