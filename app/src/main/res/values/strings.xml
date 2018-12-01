@@ -9,4 +9,8 @@
     <string name="label_bio">Bio</string>
     <string name="label_username">Usuário</string>
     <string name="full_name">Nome</string>
+    <string name="label_title">Title</string>
+    <string name="label_forked_from">Forked from</string>
+    <string name="label_description">Description</string>
+    <string name="no_description">Sem descrição</string>
 </resources>
