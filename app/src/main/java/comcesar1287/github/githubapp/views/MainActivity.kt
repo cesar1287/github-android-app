@@ -7,6 +7,7 @@ import comcesar1287.github.githubapp.R
 import comcesar1287.github.githubapp.api.APIUtils
 import comcesar1287.github.githubapp.api.callbacks.CallbackUser
 import comcesar1287.github.githubapp.models.User
+import comcesar1287.github.githubapp.utils.GlideApp
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
