@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Github App</string>
+    <string name="button_details">Detalhes</string>
+    <string name="button_repos">Repositórios</string>
 </resources>

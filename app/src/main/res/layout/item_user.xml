@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    android:id="@+id/userLayout"
+        xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/userLayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -13,6 +13,16 @@
         android:layout_marginTop="@dimen/medium_vertical_margin"
         android:layout_marginStart="@dimen/activity_horizontal_margin"/>
 
+    <ImageView
+        android:id="@+id/iconPerson"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_baseline_person_outline"
+        android:layout_toEndOf="@id/avatar"
+        android:layout_marginTop="@dimen/medium_vertical_margin"
+        android:layout_marginEnd="@dimen/medium_vertical_margin"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"/>
+
     <TextView
         android:id="@+id/login"
         android:layout_width="wrap_content"
@@ -20,10 +30,21 @@
         android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:layout_toEndOf="@id/avatar"
+        android:layout_toEndOf="@id/iconPerson"
         android:layout_marginTop="@dimen/medium_vertical_margin"
         android:layout_marginEnd="@dimen/medium_vertical_margin"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"/>
+        android:layout_marginStart="@dimen/minimum_vertical_margin"/>
+
+    <ImageView
+            android:id="@+id/iconType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_baseline_domain"
+            android:layout_toEndOf="@id/avatar"
+            android:layout_below="@id/login"
+            android:layout_marginTop="@dimen/medium_vertical_margin"
+            android:layout_marginEnd="@dimen/medium_vertical_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"/>
 
     <TextView
         android:id="@+id/type"
@@ -32,10 +53,32 @@
         android:textColor="@color/black"
         android:textSize="16sp"
         android:layout_below="@id/login"
-        android:layout_toEndOf="@id/avatar"
-        android:layout_marginTop="@dimen/minimum_vertical_margin"
+        android:layout_toEndOf="@id/iconType"
+        android:layout_marginTop="@dimen/medium_vertical_margin"
         android:layout_marginEnd="@dimen/medium_vertical_margin"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"/>
+        android:layout_marginStart="@dimen/minimum_vertical_margin"/>
+
+    <Button
+        android:id="@+id/buttonDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_details"
+        android:background="?attr/selectableItemBackground"
+        android:layout_below="@+id/type"
+        android:layout_toEndOf="@id/avatar"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:padding="@dimen/minimum_vertical_margin"/>
+
+    <Button
+        android:id="@+id/buttonRepos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/buttonDetails"
+        android:layout_below="@id/type"
+        android:layout_marginStart="@dimen/medium_vertical_margin"
+        android:background="?attr/selectableItemBackground"
+        android:text="@string/button_repos"
+        android:padding="@dimen/minimum_vertical_margin"/>
 
     <View
         android:layout_width="match_parent"
