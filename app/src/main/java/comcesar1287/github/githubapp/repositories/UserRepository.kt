@@ -34,21 +34,19 @@ class UserRepository {
         return mAllUsers
     }
 
-    fun loadUserDetails(login: String): LiveData<UserDetail> {
-        val mUserDetail: MutableLiveData<UserDetail> = MutableLiveData()
+    fun loadUserDetails(login: String): LiveData<Resource<UserDetail>> {
+        val mUserDetail: MutableLiveData<Resource<UserDetail>> = MutableLiveData()
+        mUserDetail.value = Resource.loading(null)
 
         APIUtils.getGithubV3Api().create(CallbackUser::class.java).getUser(login).enqueue(object : Callback<UserDetail> {
             override fun onFailure(call: Call<UserDetail>, t: Throwable) {
-                mUserDetail.value = null
+                mUserDetail.value = Resource.error(t.localizedMessage, null)
             }
 
             override fun onResponse(call: Call<UserDetail>, response: Response<UserDetail>) {
                 if (response.isSuccessful) {
                     val user = response.body()
-
-                    user?.let { userNonNull ->
-                        mUserDetail.value = userNonNull
-                    }
+                    mUserDetail.value = Resource.success(user)
                 }
             }
         })
@@ -56,21 +54,19 @@ class UserRepository {
         return mUserDetail
     }
 
-    fun loadUserRepos(login: String): LiveData<List<UserRepo>> {
-        val mUserRepos: MutableLiveData<List<UserRepo>> = MutableLiveData()
+    fun loadUserRepos(login: String): LiveData<Resource<List<UserRepo>>> {
+        val mUserRepos: MutableLiveData<Resource<List<UserRepo>>> = MutableLiveData()
+        mUserRepos.value = Resource.loading(null)
 
         APIUtils.getGithubV3Api().create(CallbackUser::class.java).getRepos(login).enqueue(object : Callback<List<UserRepo>> {
             override fun onFailure(call: Call<List<UserRepo>>, t: Throwable) {
-                //TODO
+                mUserRepos.value = Resource.error(t.localizedMessage, null)
             }
 
             override fun onResponse(call: Call<List<UserRepo>>, response: Response<List<UserRepo>>) {
                 if (response.isSuccessful) {
                     val reposList = response.body()
-
-                    reposList?.let { list ->
-                        mUserRepos.value = list
-                    }
+                    mUserRepos.value = Resource.success(reposList)
                 }
             }
         })

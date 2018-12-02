@@ -15,11 +15,11 @@ class UserViewModel(application: Application): AndroidViewModel(application) {
         return UserRepository().loadAllUsers()
     }
 
-    fun getUserDetails(login: String): LiveData<UserDetail> {
+    fun getUserDetails(login: String): LiveData<Resource<UserDetail>> {
         return UserRepository().loadUserDetails(login)
     }
 
-    fun getUserRepos(login: String): LiveData<List<UserRepo>> {
+    fun getUserRepos(login: String): LiveData<Resource<List<UserRepo>>> {
         return UserRepository().loadUserRepos(login)
     }
 }
