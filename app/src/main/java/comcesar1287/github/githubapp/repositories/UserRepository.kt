@@ -5,6 +5,7 @@ import android.arch.lifecycle.MutableLiveData
 import comcesar1287.github.githubapp.api.APIUtils
 import comcesar1287.github.githubapp.api.callbacks.CallbackUser
 import comcesar1287.github.githubapp.models.User
+import comcesar1287.github.githubapp.models.UserDetail
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,5 +32,27 @@ class UserRepository {
         })
 
         return mAllUsers
+    }
+
+    fun loadUserDetails(login: String): LiveData<UserDetail> {
+        val mUserDetail: MutableLiveData<UserDetail> = MutableLiveData()
+
+        APIUtils.getGithubV3Api().create(CallbackUser::class.java).getUser(login).enqueue(object : Callback<UserDetail> {
+            override fun onFailure(call: Call<UserDetail>, t: Throwable) {
+                mUserDetail.value = null
+            }
+
+            override fun onResponse(call: Call<UserDetail>, response: Response<UserDetail>) {
+                if (response.isSuccessful) {
+                    val user = response.body()
+
+                    user?.let { userNonNull ->
+                        mUserDetail.value = userNonNull
+                    }
+                }
+            }
+        })
+
+        return mUserDetail
     }
 }

@@ -1,17 +1,15 @@
 package comcesar1287.github.githubapp.views
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import comcesar1287.github.githubapp.R
-import comcesar1287.github.githubapp.api.APIUtils
-import comcesar1287.github.githubapp.api.callbacks.CallbackUser
 import comcesar1287.github.githubapp.models.UserDetail
 import comcesar1287.github.githubapp.utils.GlideApp
+import comcesar1287.github.githubapp.viewModels.UserViewModel
 import kotlinx.android.synthetic.main.activity_user_details.*
 import kotlinx.android.synthetic.main.user_fragment_content.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class UserDetailsActivity : AppCompatActivity() {
 
@@ -27,17 +25,12 @@ class UserDetailsActivity : AppCompatActivity() {
             .load(avatarUrl)
             .into(user_fragment_image)
 
-        APIUtils.getGithubV3Api().create(CallbackUser::class.java).getUser(login).enqueue(object : Callback<UserDetail> {
-            override fun onFailure(call: Call<UserDetail>, t: Throwable) {
+        val viewModel = ViewModelProviders.of(this).get(UserViewModel::class.java)
+        viewModel.getUserDetails(login).observe(this, Observer { userDetails ->
+            userDetails?.let {  usersDetailsNonNull ->
+                updateUI(usersDetailsNonNull)
+            } ?: run {
                 //TODO
-            }
-
-            override fun onResponse(call: Call<UserDetail>, response: Response<UserDetail>) {
-                val user = response.body()
-
-                user?.let { userNonNull ->
-                    updateUI(userNonNull)
-                }
             }
         })
     }
