@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity() {
                 Status.LOADING -> {
                     progressCircular.visibility = View.VISIBLE
                     recyclerView.visibility = View.GONE
+                    no_content.visibility = View.GONE
                 }
                 Status.ERROR -> Toast.makeText(this, resource.message, Toast.LENGTH_SHORT).show()
                 Status.SUCCESS -> {
@@ -41,8 +42,11 @@ class MainActivity : AppCompatActivity() {
 
                         progressCircular.visibility = View.GONE
                         recyclerView.visibility = View.VISIBLE
+                        no_content.visibility = View.GONE
                     } ?: run {
-                        //TODO
+                        progressCircular.visibility = View.GONE
+                        recyclerView.visibility = View.GONE
+                        no_content.visibility = View.VISIBLE
                     }
                 }
             }

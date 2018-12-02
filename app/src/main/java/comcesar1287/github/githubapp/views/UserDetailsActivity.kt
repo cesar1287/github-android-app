@@ -34,15 +34,19 @@ class UserDetailsActivity : AppCompatActivity() {
                 Status.LOADING -> {
                     user_fragment_content_progress_bar.visibility = View.VISIBLE
                     user_fragment_content_rl.visibility = View.GONE
+                    no_content.visibility = View.GONE
                 }
                 Status.ERROR -> Toast.makeText(this, resource.message, Toast.LENGTH_SHORT).show()
                 Status.SUCCESS -> {
                     resource.data?.let {  usersDetailsNonNull ->
                             user_fragment_content_progress_bar.visibility = View.GONE
                             user_fragment_content_rl.visibility = View.VISIBLE
+                            no_content.visibility = View.GONE
                             updateUI(usersDetailsNonNull)
                         } ?: run {
-                            //TODO
+                            user_fragment_content_progress_bar.visibility = View.GONE
+                            user_fragment_content_rl.visibility = View.GONE
+                            no_content.visibility = View.VISIBLE
                         }
                 }
             }
