@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import android.widget.Toast
 import comcesar1287.github.githubapp.R
 import comcesar1287.github.githubapp.adapters.UserReposAdapter
 import comcesar1287.github.githubapp.models.UserRepo
@@ -26,32 +25,43 @@ class UserReposActivity : AppCompatActivity() {
         val login = intent.getStringExtra("login")
 
         setupRecyclerView()
+        loadContent(login)
 
+        buttonRetry.setOnClickListener {
+            loadContent(login)
+        }
+    }
+
+    private fun loadContent(login: String) {
         val viewModel = ViewModelProviders.of(this).get(UserViewModel::class.java)
         viewModel.getUserRepos(login).observe(this, Observer { resource ->
             when(resource?.status) {
                 Status.LOADING -> {
-                    progressCircular.visibility = View.VISIBLE
-                    recyclerView.visibility = View.GONE
-                    no_content.visibility = View.GONE
+                    setVisibility(View.VISIBLE, View.GONE, View.GONE, View.GONE)
                 }
-                Status.ERROR -> Toast.makeText(this, resource.message, Toast.LENGTH_SHORT).show()
+                Status.ERROR -> {
+                    setVisibility(View.GONE, View.GONE, View.GONE, View.VISIBLE)
+                    errorMessage.text = resource.message
+                }
                 Status.SUCCESS -> {
                     resource.data?.let {  userReposListNonNull ->
                         userReposList.addAll(userReposListNonNull)
                         userReposAdapter?.notifyDataSetChanged()
 
-                        progressCircular.visibility = View.GONE
-                        recyclerView.visibility = View.VISIBLE
-                        no_content.visibility = View.GONE
+                        setVisibility(View.GONE, View.VISIBLE, View.GONE, View.GONE)
                     } ?: run {
-                        progressCircular.visibility = View.GONE
-                        recyclerView.visibility = View.GONE
-                        no_content.visibility = View.VISIBLE
+                        setVisibility(View.GONE, View.GONE, View.VISIBLE, View.GONE)
                     }
                 }
             }
         })
+    }
+
+    private fun setVisibility(progress: Int, recycler: Int, noContent: Int, error: Int) {
+        progressCircular.visibility = progress
+        recyclerView.visibility = recycler
+        no_content.visibility = noContent
+        errorLayout.visibility = error
     }
 
     private fun setupRecyclerView() {

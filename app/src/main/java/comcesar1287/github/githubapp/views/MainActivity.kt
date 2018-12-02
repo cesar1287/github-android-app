@@ -25,32 +25,44 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         setupRecyclerView()
+        loadContent()
 
+        buttonRetry.setOnClickListener {
+            loadContent()
+        }
+    }
+
+    private fun loadContent() {
         val viewModel = ViewModelProviders.of(this).get(UserViewModel::class.java)
         viewModel.getAllUsers().observe(this, Observer { resource ->
             when(resource?.status) {
                 Status.LOADING -> {
-                    progressCircular.visibility = View.VISIBLE
-                    recyclerView.visibility = View.GONE
-                    no_content.visibility = View.GONE
+                    setVisibility(View.VISIBLE, View.GONE, View.GONE, View.GONE)
                 }
-                Status.ERROR -> Toast.makeText(this, resource.message, Toast.LENGTH_SHORT).show()
+                Status.ERROR -> {
+                    errorMessage.text = resource.message
+
+                    setVisibility(View.GONE, View.GONE, View.GONE, View.VISIBLE)
+                }
                 Status.SUCCESS -> {
                     resource.data?.let {  usersListNonNull ->
                         usersList.addAll(usersListNonNull)
                         usersAdapter?.notifyDataSetChanged()
 
-                        progressCircular.visibility = View.GONE
-                        recyclerView.visibility = View.VISIBLE
-                        no_content.visibility = View.GONE
+                        setVisibility(View.GONE, View.VISIBLE, View.GONE, View.GONE)
                     } ?: run {
-                        progressCircular.visibility = View.GONE
-                        recyclerView.visibility = View.GONE
-                        no_content.visibility = View.VISIBLE
+                        setVisibility(View.GONE, View.GONE, View.VISIBLE, View.GONE)
                     }
                 }
             }
         })
+    }
+
+    private fun setVisibility(progress: Int, recycler: Int, noContent: Int, error: Int) {
+        progressCircular.visibility = progress
+        recyclerView.visibility = recycler
+        no_content.visibility = noContent
+        errorLayout.visibility = error
     }
 
     private fun setupRecyclerView() {

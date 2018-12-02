@@ -23,11 +23,18 @@ class UserDetailsActivity : AppCompatActivity() {
         val avatarUrl = intent.getStringExtra("avatar")
         val login = intent.getStringExtra("login")
 
+        loadAvatar(avatarUrl)
+        loadContent(login)
+    }
+
+    private fun loadAvatar(avatarUrl: String) {
         GlideApp
             .with(this)
             .load(avatarUrl)
             .into(user_fragment_image)
+    }
 
+    private fun loadContent(login: String) {
         val viewModel = ViewModelProviders.of(this).get(UserViewModel::class.java)
         viewModel.getUserDetails(login).observe(this, Observer { resource ->
             when(resource?.status) {
@@ -39,15 +46,15 @@ class UserDetailsActivity : AppCompatActivity() {
                 Status.ERROR -> Toast.makeText(this, resource.message, Toast.LENGTH_SHORT).show()
                 Status.SUCCESS -> {
                     resource.data?.let {  usersDetailsNonNull ->
-                            user_fragment_content_progress_bar.visibility = View.GONE
-                            user_fragment_content_rl.visibility = View.VISIBLE
-                            no_content.visibility = View.GONE
-                            updateUI(usersDetailsNonNull)
-                        } ?: run {
-                            user_fragment_content_progress_bar.visibility = View.GONE
-                            user_fragment_content_rl.visibility = View.GONE
-                            no_content.visibility = View.VISIBLE
-                        }
+                        user_fragment_content_progress_bar.visibility = View.GONE
+                        user_fragment_content_rl.visibility = View.VISIBLE
+                        no_content.visibility = View.GONE
+                        updateUI(usersDetailsNonNull)
+                    } ?: run {
+                        user_fragment_content_progress_bar.visibility = View.GONE
+                        user_fragment_content_rl.visibility = View.GONE
+                        no_content.visibility = View.VISIBLE
+                    }
                 }
             }
         })
