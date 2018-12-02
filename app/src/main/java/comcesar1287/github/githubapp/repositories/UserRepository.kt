@@ -6,6 +6,7 @@ import comcesar1287.github.githubapp.api.APIUtils
 import comcesar1287.github.githubapp.api.callbacks.CallbackUser
 import comcesar1287.github.githubapp.models.User
 import comcesar1287.github.githubapp.models.UserDetail
+import comcesar1287.github.githubapp.models.UserRepo
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -54,5 +55,27 @@ class UserRepository {
         })
 
         return mUserDetail
+    }
+
+    fun loadUserRepos(login: String): LiveData<List<UserRepo>> {
+        val mUserRepos: MutableLiveData<List<UserRepo>> = MutableLiveData()
+
+        APIUtils.getGithubV3Api().create(CallbackUser::class.java).getRepos(login).enqueue(object : Callback<List<UserRepo>> {
+            override fun onFailure(call: Call<List<UserRepo>>, t: Throwable) {
+                //TODO
+            }
+
+            override fun onResponse(call: Call<List<UserRepo>>, response: Response<List<UserRepo>>) {
+                if (response.isSuccessful) {
+                    val reposList = response.body()
+
+                    reposList?.let { list ->
+                        mUserRepos.value = list
+                    }
+                }
+            }
+        })
+
+        return mUserRepos
     }
 }

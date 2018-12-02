@@ -1,19 +1,20 @@
 package comcesar1287.github.githubapp.views
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import comcesar1287.github.githubapp.R
-import comcesar1287.github.githubapp.adapters.ReposAdapter
-import comcesar1287.github.githubapp.api.APIUtils
-import comcesar1287.github.githubapp.api.callbacks.CallbackUser
+import comcesar1287.github.githubapp.adapters.UserReposAdapter
 import comcesar1287.github.githubapp.models.UserRepo
+import comcesar1287.github.githubapp.viewModels.UserViewModel
 import kotlinx.android.synthetic.main.activity_user_repos.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class UserReposActivity : AppCompatActivity() {
+
+    private var userReposAdapter: UserReposAdapter? = null
+    private val userReposList: MutableList<UserRepo> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,23 +22,23 @@ class UserReposActivity : AppCompatActivity() {
 
         val login = intent.getStringExtra("login")
 
-        APIUtils.getGithubV3Api().create(CallbackUser::class.java).getRepos(login).enqueue(object : Callback<List<UserRepo>> {
-            override fun onFailure(call: Call<List<UserRepo>>, t: Throwable) {
+        setupRecyclerView()
+
+        val viewModel = ViewModelProviders.of(this).get(UserViewModel::class.java)
+        viewModel.getUserRepos(login).observe(this, Observer { list ->
+            list?.let {  userReposListNonNull ->
+                userReposList.addAll(userReposListNonNull)
+                userReposAdapter?.notifyDataSetChanged()
+            } ?: run {
                 //TODO
             }
-
-            override fun onResponse(call: Call<List<UserRepo>>, response: Response<List<UserRepo>>) {
-                if (response.isSuccessful) {
-                    val reposList = response.body()
-
-                    reposList?.let { list ->
-                        val layoutManager = LinearLayoutManager(this@UserReposActivity)
-                        recyclerView.layoutManager = layoutManager
-                        val usersAdapter = ReposAdapter(this@UserReposActivity, list)
-                        recyclerView.adapter = usersAdapter
-                    }
-                }
-            }
         })
+    }
+
+    private fun setupRecyclerView() {
+        val layoutManager = LinearLayoutManager(this@UserReposActivity)
+        recyclerView.layoutManager = layoutManager
+        userReposAdapter = UserReposAdapter(this@UserReposActivity, userReposList)
+        recyclerView.adapter = userReposAdapter
     }
 }

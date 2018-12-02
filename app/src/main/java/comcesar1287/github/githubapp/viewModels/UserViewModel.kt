@@ -5,6 +5,7 @@ import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
 import comcesar1287.github.githubapp.models.User
 import comcesar1287.github.githubapp.models.UserDetail
+import comcesar1287.github.githubapp.models.UserRepo
 import comcesar1287.github.githubapp.repositories.UserRepository
 
 class UserViewModel(application: Application): AndroidViewModel(application) {
@@ -15,5 +16,9 @@ class UserViewModel(application: Application): AndroidViewModel(application) {
 
     fun getUserDetails(login: String): LiveData<UserDetail> {
         return UserRepository().loadUserDetails(login)
+    }
+
+    fun getUserRepos(login: String): LiveData<List<UserRepo>> {
+        return UserRepository().loadUserRepos(login)
     }
 }
