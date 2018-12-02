@@ -9,7 +9,7 @@ import comcesar1287.github.githubapp.R
 import comcesar1287.github.githubapp.models.UserRepo
 import kotlinx.android.synthetic.main.item_repo.view.*
 
-class UserReposAdapter(private var context: Context, private var list: List<UserRepo>) : RecyclerView.Adapter<ReposAdapter.ViewHolder>() {
+class UserReposAdapter(private var context: Context, private var list: List<UserRepo>) : RecyclerView.Adapter<UserReposAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_repo, parent, false)
