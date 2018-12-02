@@ -7,10 +7,11 @@ import comcesar1287.github.githubapp.models.User
 import comcesar1287.github.githubapp.models.UserDetail
 import comcesar1287.github.githubapp.models.UserRepo
 import comcesar1287.github.githubapp.repositories.UserRepository
+import comcesar1287.github.githubapp.utils.Resource
 
 class UserViewModel(application: Application): AndroidViewModel(application) {
 
-    fun getAllUsers(): LiveData<List<User>> {
+    fun getAllUsers(): LiveData<Resource<List<User>>> {
         return UserRepository().loadAllUsers()
     }
 

@@ -7,27 +7,26 @@ import comcesar1287.github.githubapp.api.callbacks.CallbackUser
 import comcesar1287.github.githubapp.models.User
 import comcesar1287.github.githubapp.models.UserDetail
 import comcesar1287.github.githubapp.models.UserRepo
+import comcesar1287.github.githubapp.utils.Resource
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class UserRepository {
 
-    fun loadAllUsers(): LiveData<List<User>> {
-        val mAllUsers: MutableLiveData<List<User>> = MutableLiveData()
+    fun loadAllUsers(): LiveData<Resource<List<User>>> {
+        val mAllUsers: MutableLiveData<Resource<List<User>>> = MutableLiveData()
+        mAllUsers.value = Resource.loading(null)
 
         APIUtils.getGithubV3Api().create(CallbackUser::class.java).getAllUsers().enqueue(object : Callback<List<User>> {
             override fun onFailure(call: Call<List<User>>, t: Throwable) {
-                mAllUsers.value = null
+                mAllUsers.value = Resource.error(t.localizedMessage, null)
             }
 
             override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
                 if (response.isSuccessful) {
                     val usersList = response.body()
-
-                    usersList?.let { list ->
-                        mAllUsers.value = list
-                    }
+                    mAllUsers.value = Resource.success(usersList)
                 }
             }
         })
