@@ -7,6 +7,8 @@ import comcesar1287.github.githubapp.api.callbacks.CallbackUser
 import comcesar1287.github.githubapp.models.User
 import comcesar1287.github.githubapp.models.UserDetail
 import comcesar1287.github.githubapp.models.UserRepo
+import comcesar1287.github.githubapp.utils.ERROR_DEFAULT
+import comcesar1287.github.githubapp.utils.ErrorUtils
 import comcesar1287.github.githubapp.utils.Resource
 import retrofit2.Call
 import retrofit2.Callback
@@ -27,6 +29,14 @@ class UserRepository {
                 if (response.isSuccessful) {
                     val usersList = response.body()
                     mAllUsers.value = Resource.success(usersList)
+                } else {
+                    val error = ErrorUtils.parseError(response)
+
+                    error.message?.let {  message ->
+                        mAllUsers.value = Resource.error(message, null)
+                    } ?: run {
+                        mAllUsers.value = Resource.error(ERROR_DEFAULT, null)
+                    }
                 }
             }
         })
@@ -47,6 +57,14 @@ class UserRepository {
                 if (response.isSuccessful) {
                     val user = response.body()
                     mUserDetail.value = Resource.success(user)
+                } else {
+                    val error = ErrorUtils.parseError(response)
+
+                    error.message?.let {  message ->
+                        mUserDetail.value = Resource.error(message, null)
+                    } ?: run {
+                        mUserDetail.value = Resource.error(ERROR_DEFAULT, null)
+                    }
                 }
             }
         })
@@ -67,6 +85,14 @@ class UserRepository {
                 if (response.isSuccessful) {
                     val reposList = response.body()
                     mUserRepos.value = Resource.success(reposList)
+                } else {
+                    val error = ErrorUtils.parseError(response)
+
+                    error.message?.let {  message ->
+                        mUserRepos.value = Resource.error(message, null)
+                    } ?: run {
+                        mUserRepos.value = Resource.error(ERROR_DEFAULT, null)
+                    }
                 }
             }
         })

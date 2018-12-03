@@ -31,15 +31,6 @@
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 android:layout_centerInParent="true"/>
-
-        <Button
-                android:id="@+id/buttonRetry"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/label_retry"
-                android:layout_below="@id/errorMessage"
-                android:layout_marginTop="@dimen/medium_vertical_margin"
-                android:layout_centerHorizontal="true"/>
     </RelativeLayout>
 
     <TextView
