@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import comcesar1287.github.githubapp.R
 import comcesar1287.github.githubapp.models.UserDetail
@@ -18,12 +19,29 @@ class UserDetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_details)
+        setSupportActionBar(user_fragment_toolbar)
 
         val avatarUrl = intent.getStringExtra("avatar")
         val login = intent.getStringExtra("login")
 
         loadAvatar(avatarUrl)
         loadContent(login)
+        setupToolbar()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return when(item?.itemId) {
+            android.R.id.home -> {
+                finish()
+                true
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun setupToolbar() {
+        supportActionBar?.title = "" 
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     private fun loadAvatar(avatarUrl: String) {

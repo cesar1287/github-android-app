@@ -1,10 +1,16 @@
 package comcesar1287.github.githubapp.views
 
+import android.app.SearchManager
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.SearchView
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import comcesar1287.github.githubapp.R
 import comcesar1287.github.githubapp.adapters.UsersAdapter
@@ -27,6 +33,57 @@ class MainActivity : AppCompatActivity() {
 
         buttonRetry.setOnClickListener {
             loadContent()
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the options menu from XML
+        val inflater = menuInflater
+        inflater.inflate(R.menu.search_menu, menu)
+
+        setupSearchView(menu)
+
+        return true
+    }
+
+    private fun setupSearchView(menu: Menu) {
+        // Get the SearchView and set the searchable configuration
+        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        val searchView = (menu.findItem(R.id.search).actionView as SearchView)
+        searchView.apply {
+            // Assumes current activity is the searchable activity
+            setSearchableInfo(searchManager.getSearchableInfo(componentName))
+            setIconifiedByDefault(false) // Do not iconify the widget; expand it by default
+        }
+
+        setupQueryTextListener(searchView)
+    }
+
+    private fun setupQueryTextListener(searchView: SearchView) {
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                query?.let { queryNonNull ->
+                    val intent = Intent(this@MainActivity, SearchActivity::class.java)
+                    intent.putExtra("query", queryNonNull)
+                    startActivity(intent)
+                }
+                return true
+            }
+
+            override fun onQueryTextChange(p0: String?): Boolean {
+                return true
+            }
+
+        })
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return when(item?.itemId) {
+            R.id.search -> {
+                onSearchRequested()
+                true
+            }
+            else ->  return super.onOptionsItemSelected(item)
         }
     }
 

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
+        tools:context=".views.SearchActivity">
+
+    <RelativeLayout
+            android:id="@+id/errorLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+        <ImageView
+                android:id="@+id/iconError"
+                app:srcCompat="@drawable/ic_baseline_error_outline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/errorMessage"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/medium_vertical_margin"/>
+
+        <TextView
+                android:id="@+id/errorMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/medium_vertical_margin"
+                android:layout_marginStart="@dimen/activity_vertical_margin"
+                android:layout_marginEnd="@dimen/activity_vertical_margin"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_centerInParent="true"/>
+
+        <Button
+                android:id="@+id/buttonRetry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_retry"
+                android:layout_below="@id/errorMessage"
+                android:layout_marginTop="@dimen/medium_vertical_margin"
+                android:layout_centerHorizontal="true"/>
+    </RelativeLayout>
+
+    <TextView
+            android:id="@+id/no_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="16sp"
+            android:text="@string/label_no_user_found"
+            android:textColor="?android:attr/textColorPrimary"
+            android:alpha="0.54"
+            android:visibility="gone"/>
+
+    <ProgressBar
+            android:id="@+id/progressCircular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"/>
+
+    <include
+            android:id="@+id/contentLayout"
+            layout="@layout/item_user"
+            android:visibility="gone"/>
+
+</RelativeLayout>

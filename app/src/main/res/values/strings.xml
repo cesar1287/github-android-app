@@ -15,4 +15,10 @@
     <string name="no_description">Sem descrição</string>
     <string name="label_no_content">Sem dados</string>
     <string name="label_retry">Tentar Novamente</string>
+    <string name="search_hint">Pesquisar usuário</string>
+    <string name="app_label">Github App</string>
+    <string name="search_view">Pesquisar</string>
+    <string name="title_search_activity">Resultado pesquisa</string>
+    <string name="label_no_user_found">Nenhum usuário encontrado</string>
+    <string name="title_user_repos_activity">Repositórios</string>
 </resources>

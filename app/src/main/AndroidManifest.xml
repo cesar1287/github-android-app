@@ -25,6 +25,8 @@
                 android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".views.UserReposActivity">
         </activity>
+        <activity android:name=".views.SearchActivity">
+        </activity>
     </application>
 
 </manifest>

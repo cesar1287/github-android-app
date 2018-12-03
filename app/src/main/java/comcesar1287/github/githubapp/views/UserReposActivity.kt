@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.MenuItem
 import android.view.View
 import comcesar1287.github.githubapp.R
 import comcesar1287.github.githubapp.adapters.UserReposAdapter
@@ -26,10 +27,26 @@ class UserReposActivity : AppCompatActivity() {
 
         setupRecyclerView()
         loadContent(login)
+        setupToolbar()
 
         buttonRetry.setOnClickListener {
             loadContent(login)
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return when(item?.itemId) {
+            android.R.id.home -> {
+                finish()
+                true
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun setupToolbar() {
+        supportActionBar?.title = getString(R.string.title_user_repos_activity)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     private fun loadContent(login: String) {
