@@ -9,6 +9,8 @@ import android.view.View
 import comcesar1287.github.githubapp.R
 import comcesar1287.github.githubapp.models.UserDetail
 import comcesar1287.github.githubapp.utils.GlideApp
+import comcesar1287.github.githubapp.utils.KEY_EXTRA_AVATAR
+import comcesar1287.github.githubapp.utils.KEY_EXTRA_LOGIN
 import comcesar1287.github.githubapp.utils.Status
 import comcesar1287.github.githubapp.viewModels.UserViewModel
 import kotlinx.android.synthetic.main.activity_user_details.*
@@ -21,8 +23,8 @@ class UserDetailsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_user_details)
         setSupportActionBar(user_fragment_toolbar)
 
-        val avatarUrl = intent.getStringExtra("avatar")
-        val login = intent.getStringExtra("login")
+        val avatarUrl = intent.getStringExtra(KEY_EXTRA_AVATAR)
+        val login = intent.getStringExtra(KEY_EXTRA_LOGIN)
 
         loadAvatar(avatarUrl)
         loadContent(login)
@@ -40,7 +42,7 @@ class UserDetailsActivity : AppCompatActivity() {
     }
 
     private fun setupToolbar() {
-        supportActionBar?.title = "" 
+        supportActionBar?.title = ""
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 

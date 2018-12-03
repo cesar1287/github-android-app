@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import comcesar1287.github.githubapp.R
 import comcesar1287.github.githubapp.models.User
 import comcesar1287.github.githubapp.utils.GlideApp
+import comcesar1287.github.githubapp.utils.KEY_EXTRA_AVATAR
+import comcesar1287.github.githubapp.utils.KEY_EXTRA_LOGIN
 import comcesar1287.github.githubapp.views.UserDetailsActivity
 import comcesar1287.github.githubapp.views.UserReposActivity
 import kotlinx.android.synthetic.main.item_user.view.*
@@ -40,11 +42,11 @@ class UsersAdapter(private var context: Context, private var list: List<User>) :
                 .into(itemView.avatar)
 
             val intentDetails = Intent(context, UserDetailsActivity::class.java)
-            intentDetails.putExtra("login", user.login)
-            intentDetails.putExtra("avatar", user.avatarUrl)
+            intentDetails.putExtra(KEY_EXTRA_LOGIN, user.login)
+            intentDetails.putExtra(KEY_EXTRA_AVATAR, user.avatarUrl)
 
             val intentRepos = Intent(context, UserReposActivity::class.java)
-            intentRepos.putExtra("login", user.login)
+            intentRepos.putExtra(KEY_EXTRA_LOGIN, user.login)
 
             itemView.userLayout.setOnClickListener {
                 context.startActivity(intentDetails)

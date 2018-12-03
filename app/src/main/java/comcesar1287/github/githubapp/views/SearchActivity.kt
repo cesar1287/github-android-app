@@ -9,8 +9,7 @@ import android.view.MenuItem
 import android.view.View
 import comcesar1287.github.githubapp.R
 import comcesar1287.github.githubapp.models.UserDetail
-import comcesar1287.github.githubapp.utils.GlideApp
-import comcesar1287.github.githubapp.utils.Status
+import comcesar1287.github.githubapp.utils.*
 import comcesar1287.github.githubapp.viewModels.UserViewModel
 import kotlinx.android.synthetic.main.activity_search.*
 import kotlinx.android.synthetic.main.item_user.*
@@ -21,7 +20,7 @@ class SearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
-        val query = intent.getStringExtra("query")
+        val query = intent.getStringExtra(KEY_EXTRA_QUERY)
         loadContent(query)
 
         setupToolbar()
@@ -68,11 +67,11 @@ class SearchActivity : AppCompatActivity() {
             .into(avatar)
 
         val intentDetails = Intent(this, UserDetailsActivity::class.java)
-        intentDetails.putExtra("login", user.login)
-        intentDetails.putExtra("avatar", user.avatarUrl)
+        intentDetails.putExtra(KEY_EXTRA_LOGIN, user.login)
+        intentDetails.putExtra(KEY_EXTRA_AVATAR, user.avatarUrl)
 
         val intentRepos = Intent(this, UserReposActivity::class.java)
-        intentRepos.putExtra("login", user.login)
+        intentRepos.putExtra(KEY_EXTRA_LOGIN, user.login)
 
         buttonDetails.setOnClickListener {
             startActivity(intentDetails)

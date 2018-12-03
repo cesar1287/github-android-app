@@ -10,6 +10,7 @@ import android.view.View
 import comcesar1287.github.githubapp.R
 import comcesar1287.github.githubapp.adapters.UserReposAdapter
 import comcesar1287.github.githubapp.models.UserRepo
+import comcesar1287.github.githubapp.utils.KEY_EXTRA_LOGIN
 import comcesar1287.github.githubapp.utils.Status
 import comcesar1287.github.githubapp.viewModels.UserViewModel
 import kotlinx.android.synthetic.main.activity_user_repos.*
@@ -23,7 +24,7 @@ class UserReposActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_repos)
 
-        val login = intent.getStringExtra("login")
+        val login = intent.getStringExtra(KEY_EXTRA_LOGIN)
 
         setupRecyclerView()
         loadContent(login)

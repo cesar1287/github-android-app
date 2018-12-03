@@ -15,6 +15,7 @@ import android.view.View
 import comcesar1287.github.githubapp.R
 import comcesar1287.github.githubapp.adapters.UsersAdapter
 import comcesar1287.github.githubapp.models.User
+import comcesar1287.github.githubapp.utils.KEY_EXTRA_QUERY
 import comcesar1287.github.githubapp.utils.Status
 import comcesar1287.github.githubapp.viewModels.UserViewModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -64,7 +65,7 @@ class MainActivity : AppCompatActivity() {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 query?.let { queryNonNull ->
                     val intent = Intent(this@MainActivity, SearchActivity::class.java)
-                    intent.putExtra("query", queryNonNull)
+                    intent.putExtra(KEY_EXTRA_QUERY, queryNonNull)
                     startActivity(intent)
                 }
                 return true
