@@ -13,4 +13,8 @@
 
     <color name="black">#000000</color>
     <color name="black_50">#7f000000</color>
+
+    <color name="red_500">#f44336</color>
+
+    <color name="yellow">#ffeb3b</color>
 </resources>
