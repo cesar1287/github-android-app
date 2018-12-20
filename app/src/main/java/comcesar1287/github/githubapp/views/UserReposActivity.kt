@@ -52,7 +52,7 @@ class UserReposActivity : AppCompatActivity() {
 
     private fun loadContent(login: String) {
         val viewModel = ViewModelProviders.of(this).get(UserViewModel::class.java)
-        viewModel.getUserRepos(login).observe(this, Observer { resource ->
+        viewModel.getUserRepos(login)?.observe(this, Observer { resource ->
             when(resource?.status) {
                 Status.LOADING -> {
                     setVisibility(View.VISIBLE, View.GONE, View.GONE, View.GONE)

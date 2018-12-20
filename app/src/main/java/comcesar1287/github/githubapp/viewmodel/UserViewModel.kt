@@ -11,15 +11,21 @@ import comcesar1287.github.githubapp.utils.Resource
 
 class UserViewModel(application: Application): AndroidViewModel(application) {
 
-    fun getAllUsers(): LiveData<Resource<List<User>>> {
-        return UserRepository().loadAllUsers()
+    private var userRepository: UserRepository? = null
+
+    init {
+        userRepository = UserRepository()
     }
 
-    fun getUserDetails(login: String): LiveData<Resource<UserDetail>> {
-        return UserRepository().loadUserDetails(login)
+    fun getAllUsers(): LiveData<Resource<List<User>>>? {
+        return userRepository?.loadAllUsers()
     }
 
-    fun getUserRepos(login: String): LiveData<Resource<List<UserRepo>>> {
-        return UserRepository().loadUserRepos(login)
+    fun getUserDetails(login: String): LiveData<Resource<UserDetail>>? {
+        return userRepository?.loadUserDetails(login)
+    }
+
+    fun getUserRepos(login: String): LiveData<Resource<List<UserRepo>>>? {
+        return userRepository?.loadUserRepos(login)
     }
 }

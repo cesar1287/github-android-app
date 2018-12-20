@@ -90,7 +90,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun loadContent() {
         val viewModel = ViewModelProviders.of(this).get(UserViewModel::class.java)
-        viewModel.getAllUsers().observe(this, Observer { resource ->
+        viewModel.getAllUsers()?.observe(this, Observer { resource ->
             when(resource?.status) {
                 Status.LOADING -> {
                     setVisibility(View.VISIBLE, View.GONE, View.GONE, View.GONE)

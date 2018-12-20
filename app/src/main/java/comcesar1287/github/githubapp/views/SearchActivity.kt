@@ -28,7 +28,7 @@ class SearchActivity : AppCompatActivity() {
 
     private fun loadContent(query: String) {
         val viewModel = ViewModelProviders.of(this).get(UserViewModel::class.java)
-        viewModel.getUserDetails(query).observe(this, Observer { resource ->
+        viewModel.getUserDetails(query)?.observe(this, Observer { resource ->
             when(resource?.status) {
                 Status.LOADING -> {
                     setVisibility(View.VISIBLE, View.GONE, View.GONE, View.GONE)
