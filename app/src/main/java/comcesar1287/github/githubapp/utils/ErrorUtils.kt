@@ -10,14 +10,16 @@ import java.io.IOException
 
 object ErrorUtils {
 
-    fun parseError(response: Response<*>): APIError {
+    fun parseError(response: Response<*>): APIError? {
         val converter: Converter<ResponseBody, APIError> = ApiService.getClient(BASE_URL_GITHUB_V3)
             .responseBodyConverter(APIError::class.java, arrayOfNulls<Annotation>(0))
 
-        val error: APIError
+        var error: APIError? = null
 
         try {
-            error = converter.convert(response.errorBody())!!
+            response.errorBody()?.let { errorBody ->
+                error = converter.convert(errorBody)
+            }
         } catch (e: IOException) {
             return APIError()
         }

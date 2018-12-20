@@ -32,7 +32,7 @@ class UserRepository {
                 } else {
                     val error = ErrorUtils.parseError(response)
 
-                    error.message?.let {  message ->
+                    error?.message?.let {  message ->
                         mAllUsers.value = Resource.error(message, null)
                     } ?: run {
                         mAllUsers.value = Resource.error(ERROR_DEFAULT, null)
@@ -60,7 +60,7 @@ class UserRepository {
                 } else {
                     val error = ErrorUtils.parseError(response)
 
-                    error.message?.let {  message ->
+                    error?.message?.let {  message ->
                         mUserDetail.value = Resource.error(message, null)
                     } ?: run {
                         mUserDetail.value = Resource.error(ERROR_DEFAULT, null)
@@ -88,7 +88,7 @@ class UserRepository {
                 } else {
                     val error = ErrorUtils.parseError(response)
 
-                    error.message?.let {  message ->
+                    error?.message?.let {  message ->
                         mUserRepos.value = Resource.error(message, null)
                     } ?: run {
                         mUserRepos.value = Resource.error(ERROR_DEFAULT, null)
