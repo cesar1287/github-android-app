@@ -11,7 +11,7 @@ import java.io.IOException
 object ErrorUtils {
 
     fun parseError(response: Response<*>): APIError? {
-        val converter: Converter<ResponseBody, APIError> = ApiService.getClient(BASE_URL_GITHUB_V3)
+        val converter: Converter<ResponseBody, APIError> = ApiService.getGithubV3ApiClient()
             .responseBodyConverter(APIError::class.java, arrayOfNulls<Annotation>(0))
 
         var error: APIError? = null

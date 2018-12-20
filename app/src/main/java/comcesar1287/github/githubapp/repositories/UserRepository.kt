@@ -2,7 +2,7 @@ package comcesar1287.github.githubapp.repositories
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
-import comcesar1287.github.githubapp.api.APIUtils
+import comcesar1287.github.githubapp.api.ApiService
 import comcesar1287.github.githubapp.api.callbacks.CallbackUser
 import comcesar1287.github.githubapp.models.User
 import comcesar1287.github.githubapp.models.UserDetail
@@ -20,7 +20,7 @@ class UserRepository {
         val mAllUsers: MutableLiveData<Resource<List<User>>> = MutableLiveData()
         mAllUsers.value = Resource.loading(null)
 
-        APIUtils.getGithubV3Api().create(CallbackUser::class.java).getAllUsers().enqueue(object : Callback<List<User>> {
+        ApiService.getGithubV3ApiClient().create(CallbackUser::class.java).getAllUsers().enqueue(object : Callback<List<User>> {
             override fun onFailure(call: Call<List<User>>, t: Throwable) {
                 mAllUsers.value = Resource.error(t.localizedMessage, null)
             }
@@ -48,7 +48,7 @@ class UserRepository {
         val mUserDetail: MutableLiveData<Resource<UserDetail>> = MutableLiveData()
         mUserDetail.value = Resource.loading(null)
 
-        APIUtils.getGithubV3Api().create(CallbackUser::class.java).getUser(login).enqueue(object : Callback<UserDetail> {
+        ApiService.getGithubV3ApiClient().create(CallbackUser::class.java).getUser(login).enqueue(object : Callback<UserDetail> {
             override fun onFailure(call: Call<UserDetail>, t: Throwable) {
                 mUserDetail.value = Resource.error(t.localizedMessage, null)
             }
@@ -76,7 +76,7 @@ class UserRepository {
         val mUserRepos: MutableLiveData<Resource<List<UserRepo>>> = MutableLiveData()
         mUserRepos.value = Resource.loading(null)
 
-        APIUtils.getGithubV3Api().create(CallbackUser::class.java).getRepos(login).enqueue(object : Callback<List<UserRepo>> {
+        ApiService.getGithubV3ApiClient().create(CallbackUser::class.java).getRepos(login).enqueue(object : Callback<List<UserRepo>> {
             override fun onFailure(call: Call<List<UserRepo>>, t: Throwable) {
                 mUserRepos.value = Resource.error(t.localizedMessage, null)
             }
