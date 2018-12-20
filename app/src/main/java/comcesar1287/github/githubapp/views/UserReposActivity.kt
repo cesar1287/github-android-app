@@ -12,7 +12,7 @@ import comcesar1287.github.githubapp.adapters.UserReposAdapter
 import comcesar1287.github.githubapp.models.UserRepo
 import comcesar1287.github.githubapp.utils.KEY_EXTRA_LOGIN
 import comcesar1287.github.githubapp.utils.Status
-import comcesar1287.github.githubapp.viewModels.UserViewModel
+import comcesar1287.github.githubapp.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.activity_user_repos.*
 
 class UserReposActivity : AppCompatActivity() {

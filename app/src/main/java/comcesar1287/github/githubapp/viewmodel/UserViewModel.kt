@@ -1,4 +1,4 @@
-package comcesar1287.github.githubapp.viewModels
+package comcesar1287.github.githubapp.viewmodel
 
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel

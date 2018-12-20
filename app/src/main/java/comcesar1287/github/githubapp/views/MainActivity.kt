@@ -17,7 +17,7 @@ import comcesar1287.github.githubapp.adapters.UsersAdapter
 import comcesar1287.github.githubapp.models.User
 import comcesar1287.github.githubapp.utils.KEY_EXTRA_QUERY
 import comcesar1287.github.githubapp.utils.Status
-import comcesar1287.github.githubapp.viewModels.UserViewModel
+import comcesar1287.github.githubapp.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {

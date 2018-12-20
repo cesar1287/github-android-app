@@ -10,7 +10,7 @@ import android.view.View
 import comcesar1287.github.githubapp.R
 import comcesar1287.github.githubapp.models.UserDetail
 import comcesar1287.github.githubapp.utils.*
-import comcesar1287.github.githubapp.viewModels.UserViewModel
+import comcesar1287.github.githubapp.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.activity_search.*
 import kotlinx.android.synthetic.main.item_user.*
 
